@@ -96,13 +96,13 @@ STM32L476RGTX_RAM.ld → RAM linker script
 
 ## Team Members
 - Saif Altamimi – Hardware integration & wiring
-- Mohammed Alattar – Firmware & FreeRTOS design
-- Ahmed Farahat – Testing, calibration, documentation
+- Ahmed Farahat – Firmware & FreeRTOS design
+- Mohammed Alattar – Testing, calibration, documentation
 
 ## Course
 COE411 – Embedded and Cyber Physical Systems  
 American University of Sharjah
 
 ## Date
-November 2025
+28 November 2025
 
