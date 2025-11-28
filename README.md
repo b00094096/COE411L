@@ -71,3 +71,38 @@ Middlewares → FreeRTOS middleware
 Flowerpot.ioc → CubeMX pin configuration  
 STM32L476RGTX_FLASH.ld → Linker script  
 STM32L476RGTX_RAM.ld → RAM linker script  
+
+
+## How to Build & Run
+
+1. Open STM32CubeIDE
+2. Import the project folder
+3. Build the project
+4. Flash to board using ST-Link
+5. Observe LCD updates and system behavior
+
+## Current Status
+✔ All hardware integrated  
+✔ Software architecture implemented  
+✔ Real-time scheduling working  
+✔ Alerts and automation functional  
+
+## Future Work
+- ESP32 Wi-Fi cloud integration
+- Mobile app interface
+- IoT dashboard
+- Machine learning for pattern detection
+- Additional gas and air-quality sensors
+
+## Team Members
+- Saif Altamimi – Hardware integration & wiring
+- Mohammed Alattar – Firmware & FreeRTOS design
+- Ahmed Farahat – Testing, calibration, documentation
+
+## Course
+COE411 – Embedded and Cyber Physical Systems  
+American University of Sharjah
+
+## Date
+November 2025
+
