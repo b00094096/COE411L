@@ -1,36 +1,45 @@
-# IoT-Based Multi-Sensor Environmental Monitoring System 🌱
+# Smart Flowerpot 🌱
+IoT-Based Multi-Sensor Environmental Monitoring System
 
 ## Project Overview
-This project implements a real-time embedded IoT system for environmental monitoring and smart plant care using the STM32 NUCLEO-L476RG microcontroller. The system continuously measures temperature, humidity, soil moisture, ambient light, and human presence, then performs automated control actions such as watering, audio alerts, and color-coded visual feedback.
+This project is an embedded system for environmental monitoring and smart plant care using the STM32 NUCLEO-L476RG microcontroller. The system reads data from multiple sensors (soil moisture, temperature, humidity, light, and distance) and controls actuators (servo motor, RGB LED, buzzer, LCD) accordingly.
 
-The system is developed using STM32CubeIDE and integrates multiple sensors and actuators into a single embedded platform using a modular, real-time design approach.
+The project is developed using STM32CubeIDE and written in C using HAL drivers. It includes FreeRTOS for future expansion, although application tasks are not currently distributed into RTOS threads in this version.
+
+---
 
 ## Features
-- Real-time sensor monitoring (0.5–1 Hz sampling)
-- Automatic watering using servo motor
+- Soil moisture sensing with percentage calculation
+- Temperature and humidity monitoring using DHT22
+- Distance measurement using ultrasonic sensor (HC-SR04)
+- Automatic servo-based watering control
 - RGB LED plant status indication
-- Buzzer alerts for abnormal conditions
-- I²C LCD for live system feedback
-- FreeRTOS-based task scheduling
-- Event flags, queues, and mutex-based synchronization
-- Fault detection and safety supervision
+- Buzzer warning alerts
+- I²C LCD status display
+- UART debug output via `printf`
+- PWM-controlled actuators
+- Microsecond timing using DWT cycle counter
 
-## Hardware Components
+---
+
+## Hardware Used
 
 ### Microcontroller
-- STM32 NUCLEO-L476RG (ARM Cortex-M4 @ 80 MHz)
+- STM32 NUCLEO-L476RG (ARM Cortex-M4)
 
 ### Sensors
-- DHT22 — Temperature & Humidity (1-wire)
-- Capacitive Soil Moisture Sensor — Moisture level (ADC)
-- LDR (Photoresistor) — Ambient light intensity (ADC)
-- HC-SR04 Ultrasonic Sensor — Presence detection
+- DHT22 – Temperature & Humidity
+- Capacitive Soil Moisture Sensor – ADC
+- LDR – Light intensity
+- HC-SR04 Ultrasonic Sensor – Distance / presence
 
 ### Actuators
-- SG90 Servo Motor — Water control
-- RGB LED — Plant health indicator
-- Passive Buzzer — Audio alerts
-- 16×2 I²C LCD — User feedback display
+- SG90 Servo Motor – Motion control
+- RGB LED (Common Cathode)
+- Passive Buzzer
+- I²C LCD Display (16×2 with Backpack)
+
+---
 
 ## Pin Mapping Summary
 
@@ -46,62 +55,85 @@ The system is developed using STM32CubeIDE and integrates multiple sensors and a
 | Buzzer | PWM (TIM4) | PB6 |
 | LCD (I2C) | SDA / SCL | PB9 / PB8 |
 
+---
+
 ## Software Architecture
 
-The project is built using STM32CubeIDE and includes FreeRTOS as the operating system framework. At the current stage, the system initializes FreeRTOS but the application logic is executed directly inside `main.c` rather than being distributed into separate FreeRTOS tasks.
+The project is structured as a HAL-based firmware application. All sensor acquisition, actuator control, and LCD handling are implemented inside `main.c`. PWM timers are used for servo motors, LEDs, and the buzzer, while ADC and GPIO are used for analog and digital inputs.
 
-All sensor reading, actuator control, and display logic are implemented in a structured firmware design using HAL drivers and timer peripherals. FreeRTOS is included to allow future extension of the system into a multi-tasking architecture (e.g., separate sensor, control, and display tasks).
+FreeRTOS is initialized but no application tasks are defined yet. The code currently runs sequentially and prepares the project for future expansion into a real-time multitasking architecture.
 
-This design choice keeps the current firmware simple and reliable while allowing scalability in later phases such as IoT integration and advanced automation.
-
+---
 
 ## FreeRTOS Status
 
-FreeRTOS is initialized in the project; however, no application-level tasks, queues, semaphores, or event groups are currently defined. All program logic executes sequentially within `main.c`.
+FreeRTOS is initialized at kernel level, but no threads, queues, semaphores, or event flags are implemented in this version.
 
-The operating system framework is included for future expansion into a multi-tasking system but is not yet used for real-time task scheduling in this version.
+Future versions may separate:
+- Sensor reading
+- Control logic
+- Display update
+
+into independent RTOS tasks.
+
+---
 
 ## Project Structure
 
-Core/Src/main.c → Main application code  
-Core/Inc → Header files  
-Drivers → STM32 HAL drivers  
-Middlewares → FreeRTOS middleware  
-Flowerpot.ioc → CubeMX pin configuration  
-STM32L476RGTX_FLASH.ld → Linker script  
-STM32L476RGTX_RAM.ld → RAM linker script  
+Core/Src/main.c → Main firmware logic
+Core/Inc → Header files
+Drivers → STM32 HAL drivers
+Middlewares → FreeRTOS source code
+Flowerpot.ioc → CubeMX configuration
+STM32L476RGTX_FLASH.ld → Linker script
+STM32L476RGTX_RAM.ld → RAM linker script
 
+
+---
 
 ## How to Build & Run
 
-1. Open STM32CubeIDE
-2. Import the project folder
-3. Build the project
-4. Flash to board using ST-Link
-5. Observe LCD updates and system behavior
+1. Open STM32CubeIDE  
+2. Import the project folder  
+3. Build project  
+4. Flash to board using ST-Link  
+5. Observe behavior on LCD and outputs
+
+---
 
 ## Current Status
-✔ All hardware integrated  
-✔ Software architecture implemented  
-✔ Real-time scheduling working  
-✔ Alerts and automation functional  
+✔ Sensors working  
+✔ Actuators operational  
+✔ LCD communication active  
+✔ UART output functional  
+✔ PWM control implemented  
+✔ FreeRTOS kernel enabled  
+✔ System stable  
 
-## Future Work
-- ESP32 Wi-Fi cloud integration
-- Mobile app interface
-- IoT dashboard
-- Machine learning for pattern detection
-- Additional gas and air-quality sensors
+---
+
+## Future Development
+- RTOS task restructuring
+- Cloud connectivity (ESP32)
+- Mobile dashboard
+- AI prediction
+- Advanced safety logic
+- Additional environmental sensors
+
+---
 
 ## Team Members
-- Saif Altamimi – Hardware integration & wiring
-- Ahmed Farahat – Firmware & FreeRTOS design
-- Mohammed Alattar – Testing, calibration, documentation
+- Saif Altamimi — Hardware Integration
+- Ahmed Farahat — Firmware Development
+- Mohammed Alattar — Testing & Documentation
+
+---
 
 ## Course
 COE411 – Embedded and Cyber Physical Systems  
 American University of Sharjah
 
+---
+
 ## Date
 28 November 2025
-
