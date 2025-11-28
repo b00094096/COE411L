@@ -48,19 +48,18 @@ The system is developed using STM32CubeIDE and integrates multiple sensors and a
 
 ## Software Architecture
 
-The firmware is structured as independent FreeRTOS tasks:
+The project is built using STM32CubeIDE and includes FreeRTOS as the operating system framework. At the current stage, the system initializes FreeRTOS but the application logic is executed directly inside `main.c` rather than being distributed into separate FreeRTOS tasks.
 
-### Tasks
-- **Sensor Task** – Reads all sensors periodically
-- **Control Task** – Compares readings with thresholds and controls outputs
-- **Display Task** – Updates LCD screen
-- **Safety Task** – Prevents overwatering and detects faults
+All sensor reading, actuator control, and display logic are implemented in a structured firmware design using HAL drivers and timer peripherals. FreeRTOS is included to allow future extension of the system into a multi-tasking architecture (e.g., separate sensor, control, and display tasks).
 
-### Inter-Task Communication
-- Queues for sensor data and control commands
-- Mutex protecting I²C bus
-- Event flags for system state
-- Semaphore for watering supervision
+This design choice keeps the current firmware simple and reliable while allowing scalability in later phases such as IoT integration and advanced automation.
+
+
+## FreeRTOS Status
+
+FreeRTOS is initialized in the project; however, no application-level tasks, queues, semaphores, or event groups are currently defined. All program logic executes sequentially within `main.c`.
+
+The operating system framework is included for future expansion into a multi-tasking system but is not yet used for real-time task scheduling in this version.
 
 ## Project Structure
 
