@@ -64,4 +64,12 @@ The firmware is structured as independent FreeRTOS tasks:
 
 ## Project Structure
 
+Core/Src/main.c → Main application code  
+Core/Inc → Header files  
+Drivers → STM32 HAL drivers  
+Middlewares → FreeRTOS middleware  
+Flowerpot.ioc → CubeMX pin configuration  
+STM32L476RGTX_FLASH.ld → Linker script  
+STM32L476RGTX_RAM.ld → RAM linker script  
+
 
